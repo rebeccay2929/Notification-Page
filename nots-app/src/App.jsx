@@ -1,6 +1,4 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
@@ -9,7 +7,7 @@ function App() {
       id: "1",
       author: {
         name: "Mark Webber",
-        img: "./assets/images/mark-weber.webp",
+        src: "/images/avatar-mark-webber.webp",
         href: "#",
       },
       text: "reacted to your recent post",
@@ -18,26 +16,26 @@ function App() {
         href: "#",
       },
       time: "1m ago",
-      notificationRead: false,
+      isUnread: true,
     },
 
     {
       id: "2",
       author: {
         name: "Angela Gray",
-        img: "./assets/images/angela-gray.webp",
+        src: "/images/avatar-angela-gray.webp",
         href: "#",
       },
       text: "followed you",
       time: "5m ago",
-      notificationRead: false,
+      isUnread: true,
     },
 
     {
       id: "3",
       author: {
         name: "Jacob Thompson",
-        img: "./assets/images/jacob-thompson.webp",
+        src: "/images/avatar-jacob-thompson.webp",
         href: "#",
       },
       text: "has joined your group",
@@ -46,42 +44,43 @@ function App() {
         href: "#",
       },
       time: "1 day ago",
-      notificationRead: false,
+      isUnread: true,
     },
     {
       id: "4",
       author: {
         name: "Rizky Hasanuddin",
-        img: "./assets/images/rizky-hasanuddin.wepb",
+        src: "/images/avatar-rizky-hasanuddin.webp",
         href: "#",
       },
       text: "sent you a private messge ",
       time: "5 days ago",
       privateMessage: "Hello, thanks for  setting up chess club.",
-      notificationRead: false,
+      isUnread: true,
     },
 
     {
       id: "5",
       author: {
         name: "Kimberly Smith",
-        img: "./assets/images/kimberly-smith.webp",
+        src: "/images/avatar-kimberly-smith.webp",
         href: "#",
       },
       text: "commented on your picture",
       image: {
-        img: "Chess Club",
+        src: "/images/image-chess.webp",
+        alt: "Chess game",
         href: "#",
       },
       time: "1 week ago",
-      notificationRead: true,
+      isUnread: false,
     },
 
     {
       id: "6",
       author: {
         name: "Nathan Peterson",
-        img: "./assets/images/nathan-peterson.webp",
+        src: "/images/avatar-nathan-peterson.webp",
         href: "#",
       },
       text: "reacted to your rexent post",
@@ -90,14 +89,14 @@ function App() {
         href: "#",
       },
       time: "2 weeks ago",
-      notificationRead: true,
+      isUnread: false,
     },
 
     {
       id: "7",
       author: {
         name: "Anna Kim",
-        img: "./assets/images/anna-kim.webp",
+        src: "/images/avatar-anna-kim.webp",
         href: "#",
       },
       text: "left the group",
@@ -106,13 +105,53 @@ function App() {
         href: "#",
       },
       time: "2 weeks ago",
-      notificationRead: true,
+      isUnread: false,
     },
   ]);
 
   return (
     <div className="App">
-     <p> hello </p>
+
+      <div className="container">
+
+        <header>
+          <div className="title">
+            <h1>Notifications</h1>
+            <span className="badge">
+              {notifications.filter(n => n.isUread)}
+              </span>
+          </div>
+        </header>
+
+        {notifications &&
+          notifications.map((n) => (
+
+            <div key={n.id}>
+              <img src={n.author.src} alt={n.author.name} />
+              <div>
+
+                <div className="post-text">
+                  <a href={n.author.href}>{n.author.name}</a>
+                  <p>{n.text}</p>
+                  {n.link && <a href={n.link.href}>{n.link.text}</a>}
+                  <span class={n.unread && "isUnread "}></span>
+                </div>
+
+                <p className="time"> {n.time}</p>
+
+                {n.privateMessage && (
+                  <p className="privateMessgae"> {n.privateMessage}</p>
+                )}
+
+              </div>
+              {n.image && (
+                <a href={n.image.href}>
+                  <img src={n.image.src} alt={n.image.alt} />
+                </a>
+              )}
+            </div>
+          ))}
+      </div>
     </div>
   );
 }
