@@ -118,7 +118,7 @@ function App() {
           <div className="title">
             <h1>Notifications</h1>
             <span className="badge">
-              {notifications.filter(n => n.isUread)}
+              {notifications.filter(n => n.isUnread).length}
               </span>
           </div>
         </header>
@@ -133,8 +133,8 @@ function App() {
                 <div className="post-text">
                   <a href={n.author.href}>{n.author.name}</a>
                   <p>{n.text}</p>
-                  {n.link && <a href={n.link.href}>{n.link.text}</a>}
-                  <span class={n.unread && "isUnread "}></span>
+                  {n.link && (<a href={n.link.href}>{n.link.text}</a>)}
+                  <span class={n.isUnread && "isUnread"} ></span>
                 </div>
 
                 <p className="time"> {n.time}</p>
