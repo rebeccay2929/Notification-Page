@@ -40,3 +40,12 @@
 .read-the-docs {
   color: #888;
 }
+
+
+.isUnread{
+  width: 18px;
+  height: 18px;
+  background-color: red;
+  border-radius: 100vmax;
+  display: block;
+}

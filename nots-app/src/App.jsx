@@ -108,7 +108,17 @@ function App() {
       isUnread: false,
     },
   ]);
+function handleNotificationClick(id){
+  setNotifications((prev)=> prev.map(n=>(
+    n.id === id ? {...n, isUnread : false} : n
+  )))
+}
 
+function markAllUnread() {
+  setNotifications((prev) => prev.map(
+    (n) => ({ ...n, isUnread: false 
+    })));
+}
   return (
     <div className="App">
 
@@ -121,20 +131,27 @@ function App() {
               {notifications.filter(n => n.isUnread).length}
               </span>
           </div>
+          <button id="mark" onClick={markAllUnread}> Mark all as read</button>
         </header>
 
         {notifications &&
           notifications.map((n) => (
 
-            <div key={n.id}>
+            <div key={n.id} onClick={()=> handleNotificationClick(n.id)}>
               <img src={n.author.src} alt={n.author.name} />
               <div>
 
                 <div className="post-text">
                   <a href={n.author.href}>{n.author.name}</a>
                   <p>{n.text}</p>
-                  {n.link && (<a href={n.link.href}>{n.link.text}</a>)}
-                  <span class={n.isUnread && "isUnread"} ></span>
+                  {n.link && (
+                  <a href={n.link.href}>
+                    {n.link.text}
+                    </a>
+                    )}
+                  {n.isUnread && (<span className="isUnread">
+                  </span>
+                  )} 
                 </div>
 
                 <p className="time"> {n.time}</p>
